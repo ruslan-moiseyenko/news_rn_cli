@@ -18,8 +18,16 @@ import BootSplash from 'react-native-bootsplash';
 
 function App(): React.JSX.Element {
   useEffect(() => {
-    BootSplash.hide({fade: true});
+    const init = async () => {
+      // …do multiple sync or async tasks
+    };
+
+    init().finally(async () => {
+      await BootSplash.hide({fade: true});
+      console.log('BootSplash has been hidden successfully');
+    });
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
