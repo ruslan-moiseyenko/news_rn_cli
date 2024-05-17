@@ -4,8 +4,7 @@
  *
  * @format
  */
-
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -23,8 +22,8 @@ function App(): React.JSX.Element {
     };
 
     init().finally(async () => {
-      await BootSplash.hide({fade: true});
-      console.log('BootSplash has been hidden successfully');
+      await BootSplash.hide({ fade: true });
+      console.info('BootSplash has been hidden successfully');
     });
   }, []);
 
@@ -34,6 +33,7 @@ function App(): React.JSX.Element {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
           <Text>APP</Text>
+          <Text>Some changes</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
