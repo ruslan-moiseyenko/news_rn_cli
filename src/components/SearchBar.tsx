@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 import SearchLens from '@/assets/svg/search_lens.svg';
+import { COLORS } from '@/theme/colors';
 
 type SearchBarProps = {
   placeholder?: string;
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 10,
     justifyContent: 'center',
-    backgroundColor: '#A4A9AE',
+    backgroundColor: COLORS.GRAY_LIGHT,
   },
   searchWrapper: {
     flexDirection: 'row',

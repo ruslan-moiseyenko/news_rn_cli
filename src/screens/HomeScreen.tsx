@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NothingFound } from '@/components/NothingFound';
 import { SearchBar } from '@/components/SearchBar';
 import { RootStackParamList } from '@/navigation/types';
+import { COLORS } from '@/theme/colors';
 
 export type HomePageProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -20,7 +21,8 @@ export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 30,
-    backgroundColor: 'FFFFFF',
+    backgroundColor: COLORS.WHITE,
   },
 });

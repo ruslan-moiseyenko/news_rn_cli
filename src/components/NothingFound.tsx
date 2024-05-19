@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import NothingFoundIcon from '@/assets/svg/nothingFound.svg';
+import { Typography } from '@/components/Typography';
 
 export const NothingFound = () => {
   return (
     <View style={styles.container}>
-      <NothingFoundIcon />
-      <Text>No results found</Text>
+      <NothingFoundIcon style={styles.image} />
+      <Typography>No results found</Typography>
     </View>
   );
 };
@@ -17,6 +18,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '30%',
+    marginTop: '50%',
+  },
+  image: {
+    marginBottom: 29,
   },
 });

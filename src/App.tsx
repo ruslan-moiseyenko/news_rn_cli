@@ -11,6 +11,7 @@ import BootSplash from 'react-native-bootsplash';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { RootNavigator } from '@/navigation/RootNavigator';
+import { COLORS } from '@/theme/colors';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -36,6 +37,7 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.WHITE,
   },
 });
 
