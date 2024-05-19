@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import NothingFound from '@/assets/svg/nothingFound.svg';
+import { NothingFound } from '@/components/NothingFound';
 import { SearchBar } from '@/components/SearchBar';
 import { RootStackParamList } from '@/navigation/types';
 
@@ -11,12 +11,16 @@ export type HomePageProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
   return (
-    <View>
-      <Text>Home</Text>
-      <SearchBar />
+    <View style={styles.container}>
+      <SearchBar onChange={() => {}} onEndEditing={() => {}} />
       <NothingFound />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 30,
+    backgroundColor: 'FFFFFF',
+  },
+});
