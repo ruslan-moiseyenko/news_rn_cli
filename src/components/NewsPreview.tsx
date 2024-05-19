@@ -8,13 +8,12 @@ import { NewsType } from '@/types/general';
 
 type NewsPreviewProps = {
   news: NewsType;
-  onPress: () => void;
 };
-export const NewsPreview: FC<NewsPreviewProps> = ({ news, onPress }) => {
+export const NewsPreview: FC<NewsPreviewProps> = ({ news }) => {
   const { date, description, image, title } = news;
   return (
     <PressableOpacity
-      onPress={onPress}
+      // onPress={onPress}
       style={[styles.container, styles.inputBoxShadow]}>
       <Image
         source={require('@/assets/images/newsImage.png')}
@@ -28,8 +27,9 @@ export const NewsPreview: FC<NewsPreviewProps> = ({ news, onPress }) => {
           color={COLORS.BLACK}
           size={16}
           type="light"
+          numberOfLines={1}
           style={styles.title}>
-          {`${description.slice(0, 40)}...`}
+          {description}
         </Typography>
         <Typography color={COLORS.GRAY} size={12} type="extraLight">
           {date}

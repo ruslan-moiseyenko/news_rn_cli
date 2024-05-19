@@ -1,11 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FC } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
 
-export const NewsPreviewList = () => {
+import { NewsPreview } from '@/components/NewsPreview';
+import { NewsType } from '@/types/general';
+
+type NewsPreviewListProps = {
+  data: NewsType[];
+};
+
+export const NewsPreviewList: FC<NewsPreviewListProps> = ({ data }) => {
   return (
-    <View>
-      <Text>NewsPreviewList</Text>
-    </View>
+    <FlatList
+      data={data}
+      renderItem={({ item }) => <NewsPreview news={item} />}
+    />
   );
 };
 

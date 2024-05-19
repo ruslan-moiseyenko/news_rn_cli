@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { NewsPreview } from '@/components/NewsPreview';
+import { NewsPreviewList } from '@/components/NewsPreviewList';
 import { NothingFound } from '@/components/NothingFound';
 import { SearchBar } from '@/components/SearchBar';
 import { RootStackParamList } from '@/navigation/types';
@@ -46,7 +47,7 @@ export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
         onChangeText={setSearchValue}
         onEndEditing={handleSearch}
       />
-      <NewsPreview news={newsDb[0]} onPress={() => {}} />
+      <NewsPreviewList data={newsDb} />
       {/* <NothingFound /> */}
     </View>
   );
