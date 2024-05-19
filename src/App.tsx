@@ -5,15 +5,12 @@
  * @format
  */
 import React, { useEffect } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+
+import { NavigationContainer } from '@react-navigation/native';
+
+import { RootNavigator } from '@/navigation/RootNavigator';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -29,13 +26,9 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={'light-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text>APP</Text>
-          <Text>Some changes</Text>
-        </View>
-      </ScrollView>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
     </SafeAreaView>
   );
 }
@@ -43,22 +36,6 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
   },
 });
 
