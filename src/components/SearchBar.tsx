@@ -8,13 +8,15 @@ import { COLORS } from '@/theme/colors';
 
 type SearchBarProps = {
   placeholder?: string;
-  onChange: () => void;
-  onEndEditing: () => void;
+  value: string;
+  onChangeText?: (text: string) => void;
+  onEndEditing: () => {};
 };
 
 export const SearchBar: FC<SearchBarProps> = ({
+  value,
   placeholder = 'Search',
-  onChange,
+  onChangeText,
   onEndEditing,
 }) => {
   return (
@@ -22,7 +24,13 @@ export const SearchBar: FC<SearchBarProps> = ({
       <View style={styles.searchWrapper}>
         <View style={styles.search}>
           <SearchLens width={24} height={24} />
-          <TextInput placeholder={placeholder} placeholderTextColor="#8E949A" />
+          <TextInput
+            value={value}
+            placeholder={placeholder}
+            placeholderTextColor="#8E949A"
+            onChangeText={onChangeText}
+            onEndEditing={onEndEditing}
+          />
         </View>
       </View>
       <RoundButton icon={Plus} />
@@ -36,6 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
+    marginBottom: 40,
   },
   searchWrapper: {
     flex: 1,
