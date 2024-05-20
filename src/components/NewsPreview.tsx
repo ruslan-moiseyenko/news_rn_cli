@@ -21,7 +21,7 @@ type NewsPreviewProps = {
 
 export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
-  const { date, description, title, image } = news;
+  const { date, description, title, image, id } = news;
 
   const handleNavigation = useCallback(
     () => navigation.navigate('NewsPost', { news }),
@@ -30,7 +30,7 @@ export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
   return (
     <PressableOpacity
       onPress={handleNavigation}
-      onLongPress={() => navigation.navigate('Modal')}
+      onLongPress={() => navigation.navigate('Modal', { id })}
       style={[styles.container, styles.inputBoxShadow]}>
       <Image src={!!image ? image : blankImage} style={styles.image} />
       <View style={styles.infoWrapper}>

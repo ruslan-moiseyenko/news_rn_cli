@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import {
   Alert,
   Keyboard,
@@ -16,6 +16,7 @@ import { Formik } from 'formik';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
+import { NewsContext } from '@/App';
 import LeftArrow from '@/assets/svg/left_arrow.svg';
 import { InputWithError } from '@/components/InputWithError';
 import { RoundButton } from '@/components/RoundButton';
@@ -42,6 +43,13 @@ const initialValues = {
 };
 
 export const AddNewPost: FC<NewsPageProps> = ({ navigation }) => {
+  const context = useContext(NewsContext);
+  if (!context) {
+    throw new Error('NewsContext must be used within a NewsProvider');
+  }
+
+  const { news, setNews } = context;
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -56,8 +64,19 @@ export const AddNewPost: FC<NewsPageProps> = ({ navigation }) => {
           initialValues={initialValues}
           validationSchema={toFormikValidationSchema(validationSchema)}
           onSubmit={values => {
-            Alert.alert('Data sent');
-            console.log(values);
+            if (news) {
+              setNews([
+                ...news,
+                {
+                  id: Date.now().toString(),
+                  date: `${new Date().getDate()}, ${new Date().getMonth()}, ${new Date().getFullYear()}`,
+                  description: values.description,
+                  image: values.image,
+                  title: values.title,
+                },
+              ]);
+            }
+            navigation.goBack();
           }}>
           {({
             values,

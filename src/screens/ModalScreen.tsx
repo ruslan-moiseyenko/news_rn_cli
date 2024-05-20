@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { NewsContext } from '@/App';
 import Line from '@/assets/svg/line.svg';
 import { StyledButton } from '@/components/StyledButton';
+import { RootStackParamList } from '@/navigation/types';
 import { COLORS } from '@/theme/colors';
 
-export const ModalScreen = () => {
-  const navigation: NavigationProp<ParamListBase> = useNavigation();
+export type ModalScreenType = {
+  id: string;
+};
+export type ModalScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Modal'
+>;
+
+export const ModalScreen: FC<ModalScreenProps> = ({ navigation, route }) => {
+  const context = useContext(NewsContext);
+  const { id } = route.params;
+
+  if (!context) {
+    throw new Error('NewsContext must be used within a NewsProvider');
+  }
+
+  const { news, setNews } = context;
+
+  const handleDelete = () => {
+    setNews(news?.filter(item => item.id !== id) || []);
+    navigation.goBack();
+  };
+
   return (
     <View
       style={{
@@ -23,7 +42,7 @@ export const ModalScreen = () => {
       }}>
       <View style={styles.main}>
         <Line style={styles.line} />
-        <StyledButton onPress={() => {}} title="Delete" variant="primary" />
+        <StyledButton onPress={handleDelete} title="Delete" variant="primary" />
         <StyledButton
           onPress={() => navigation.goBack()}
           title="Close"
