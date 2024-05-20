@@ -26,6 +26,7 @@ export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
   return (
     <PressableOpacity
       onPress={handleNavigation}
+      onLongPress={() => navigation.navigate('Modal')}
       style={[styles.container, styles.inputBoxShadow]}>
       <Image
         source={require('@/assets/images/newsImage.png')}

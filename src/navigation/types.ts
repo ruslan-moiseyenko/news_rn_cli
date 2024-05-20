@@ -4,4 +4,5 @@ export type RootStackParamList = {
   Home: undefined;
   NewsPost: NewsPostScreenProps;
   AddNewPost: undefined;
+  Modal: undefined;
 };
