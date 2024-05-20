@@ -13,6 +13,9 @@ export const NewsPreviewList: FC<NewsPreviewListProps> = ({ data }) => {
     <FlatList
       data={data}
       renderItem={({ item }) => <NewsPreview news={item} />}
+      keyExtractor={item => String(item.id)}
+      initialNumToRender={5}
+      contentContainerStyle={{ gap: 40 }}
     />
   );
 };

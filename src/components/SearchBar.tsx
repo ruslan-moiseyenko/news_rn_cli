@@ -1,6 +1,12 @@
 import React, { FC } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+
 import Plus from '@/assets/svg/plus.svg';
 import SearchLens from '@/assets/svg/search_lens.svg';
 import { RoundButton } from '@/components/RoundButton';
@@ -19,6 +25,7 @@ export const SearchBar: FC<SearchBarProps> = ({
   onChangeText,
   onEndEditing,
 }) => {
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.searchWrapper}>
@@ -33,7 +40,10 @@ export const SearchBar: FC<SearchBarProps> = ({
           />
         </View>
       </View>
-      <RoundButton icon={Plus} />
+      <RoundButton
+        icon={Plus}
+        onPress={() => navigation.navigate('AddNewPost')}
+      />
     </View>
   );
 };

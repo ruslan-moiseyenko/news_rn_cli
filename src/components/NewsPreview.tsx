@@ -1,6 +1,12 @@
 import React, { FC } from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+
 import { PressableOpacity } from '@/components/PressableOpacity';
 import { Typography } from '@/components/Typography';
 import { COLORS } from '@/theme/colors';
@@ -10,10 +16,11 @@ type NewsPreviewProps = {
   news: NewsType;
 };
 export const NewsPreview: FC<NewsPreviewProps> = ({ news }) => {
-  const { date, description, image, title } = news;
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const { date, description, title } = news;
   return (
     <PressableOpacity
-      // onPress={onPress}
+      onPress={() => navigation.navigate('NewsPost', { news })}
       style={[styles.container, styles.inputBoxShadow]}>
       <Image
         source={require('@/assets/images/newsImage.png')}

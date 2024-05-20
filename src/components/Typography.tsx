@@ -16,7 +16,6 @@ type TypographyProps = TextProps & {
   color?: ColorValue;
   size?: number;
   type?: FontType;
-  italic?: boolean;
   children:
     | string
     | string[]
@@ -32,7 +31,6 @@ type TypographyProps = TextProps & {
 export const Typography = ({
   color = COLORS.GRAY,
   type = 'regular',
-  italic = false,
   uppercase = false,
   capitalize = false,
   size = 16,
@@ -40,9 +38,7 @@ export const Typography = ({
   style = {},
   ...restNativeProps
 }: TypographyProps) => {
-  const fontFamily = `Roboto-${capitalizeFirstLetter(type)}${
-    italic ? 'Italic' : ''
-  }`;
+  const fontFamily = `Roboto-${capitalizeFirstLetter(type)}`;
   return (
     <Text
       style={[
