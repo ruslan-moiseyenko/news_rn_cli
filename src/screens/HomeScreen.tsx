@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { NewsPreview } from '@/components/NewsPreview';
 import { NewsPreviewList } from '@/components/NewsPreviewList';
 import { NothingFound } from '@/components/NothingFound';
 import { SearchBar } from '@/components/SearchBar';
@@ -31,7 +30,7 @@ export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       try {
-        const newsDB = await require('@/data/news.json');
+        const newsDB = await require('@/data/news2.json');
         if (newsDB) setNewsDb(newsDB);
       } catch (error) {
         console.log('Error during receiving data', error);

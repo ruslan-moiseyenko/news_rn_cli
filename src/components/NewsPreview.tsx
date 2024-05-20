@@ -12,12 +12,16 @@ import { Typography } from '@/components/Typography';
 import { COLORS } from '@/theme/colors';
 import { NewsType } from '@/types/general';
 
+const blankImage =
+  'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=1024x1024&w=is&k=20&c=Bs1RdueQnaAcO888WBIQsC6NvA7aVTzeRVzSd8sJfUg=';
+
 type NewsPreviewProps = {
   news: NewsType;
 };
+
 export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
-  const { date, description, title } = news;
+  const { date, description, title, image } = news;
 
   const handleNavigation = useCallback(
     () => navigation.navigate('NewsPost', { news }),
@@ -28,10 +32,7 @@ export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
       onPress={handleNavigation}
       onLongPress={() => navigation.navigate('Modal')}
       style={[styles.container, styles.inputBoxShadow]}>
-      <Image
-        source={require('@/assets/images/newsImage.png')}
-        style={styles.image}
-      />
+      <Image src={!!image ? image : blankImage} style={styles.image} />
       <View style={styles.infoWrapper}>
         <Typography color={COLORS.BLACK} size={20} style={styles.title}>
           {title}
