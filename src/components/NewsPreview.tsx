@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 
 import {
@@ -15,12 +15,17 @@ import { NewsType } from '@/types/general';
 type NewsPreviewProps = {
   news: NewsType;
 };
-export const NewsPreview: FC<NewsPreviewProps> = ({ news }) => {
+export const NewsPreviewItem: FC<NewsPreviewProps> = ({ news }) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const { date, description, title } = news;
+
+  const handleNavigation = useCallback(
+    () => navigation.navigate('NewsPost', { news }),
+    [],
+  );
   return (
     <PressableOpacity
-      onPress={() => navigation.navigate('NewsPost', { news })}
+      onPress={handleNavigation}
       style={[styles.container, styles.inputBoxShadow]}>
       <Image
         source={require('@/assets/images/newsImage.png')}
@@ -45,6 +50,8 @@ export const NewsPreview: FC<NewsPreviewProps> = ({ news }) => {
     </PressableOpacity>
   );
 };
+
+export const NewsPreview = React.memo(NewsPreviewItem);
 
 const styles = StyleSheet.create({
   container: {

@@ -14,7 +14,7 @@ export const NewsPreviewList: FC<NewsPreviewListProps> = ({ data }) => {
       data={data}
       renderItem={({ item }) => <NewsPreview news={item} />}
       keyExtractor={item => String(item.id)}
-      initialNumToRender={5}
+      initialNumToRender={3}
       contentContainerStyle={{ gap: 40 }}
     />
   );
