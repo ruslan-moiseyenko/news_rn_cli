@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { NewsContext } from '@/App';
 import { NewsPreviewList } from '@/components/NewsPreviewList';
 import { NothingFound } from '@/components/NothingFound';
 import { SearchBar } from '@/components/SearchBar';
@@ -16,23 +17,28 @@ export type HomePageProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState('');
   const [filteredNews, setFilteredNews] = useState<NewsType[]>([]);
+  const context = useContext(NewsContext);
 
-  const newsDb = useGetData();
+  if (!context) {
+    throw new Error('NewsContext must be used within a NewsProvider');
+  }
+
+  const { news, setNews } = context;
 
   useEffect(() => {
-    setFilteredNews(newsDb);
-  }, [newsDb]);
+    setFilteredNews(news || []);
+  }, [news]);
 
   const handleSearch = async () => {
     if (!searchValue.trim()) {
-      setFilteredNews(newsDb);
+      setFilteredNews(news || []);
     } else {
       setFilteredNews(
-        newsDb.filter(
+        news?.filter(
           item =>
             item.description.includes(searchValue) ||
             item.title.includes(searchValue),
-        ),
+        ) || [],
       );
     }
   };

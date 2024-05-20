@@ -4,16 +4,28 @@
  *
  * @format
  */
-import React, { useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 
 import { NavigationContainer } from '@react-navigation/native';
 
+import { useGetData } from '@/hooks/useGetData';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { COLORS } from '@/theme/colors';
+import { NewsType } from '@/types/general';
+
+interface NewsContextType {
+  news: NewsType[] | undefined;
+  setNews: (news: NewsType[]) => void;
+}
+
+export const NewsContext = createContext<NewsContextType | undefined>(
+  undefined,
+);
 
 function App(): React.JSX.Element {
+  const [news, setNews] = useState<NewsType[]>();
   useEffect(() => {
     const init = async () => {
       // …do multiple sync or async tasks
@@ -25,12 +37,20 @@ function App(): React.JSX.Element {
     });
   }, []);
 
+  const newsDb = useGetData();
+
+  useEffect(() => {
+    setNews(newsDb);
+  }, [newsDb]);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </SafeAreaView>
+    <NewsContext.Provider value={{ news, setNews }}>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </SafeAreaView>
+    </NewsContext.Provider>
   );
 }
 
