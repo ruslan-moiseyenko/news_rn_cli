@@ -69,7 +69,12 @@ export const AddNewPost: FC<NewsPageProps> = ({ navigation }) => {
                 ...news,
                 {
                   id: Date.now().toString(),
-                  date: `${new Date().getDate()}, ${new Date().getMonth()}, ${new Date().getFullYear()}`,
+                  date: new Date().toLocaleDateString('en-us', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  }),
                   description: values.description,
                   image: values.image,
                   title: values.title,
