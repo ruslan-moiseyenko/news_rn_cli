@@ -1,5 +1,14 @@
 import React, { FC } from 'react';
-import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -34,75 +43,84 @@ const initialValues = {
 
 export const AddNewPost: FC<NewsPageProps> = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.navBar}>
-        <RoundButton icon={LeftArrow} onPress={() => navigation.goBack()} />
-        <Typography color={COLORS.BLACK} size={20} style={styles.title}>
-          New post
-        </Typography>
-      </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.navBar}>
+          <RoundButton icon={LeftArrow} onPress={() => navigation.goBack()} />
+          <Typography color={COLORS.BLACK} size={20} style={styles.title}>
+            New post
+          </Typography>
+        </View>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={toFormikValidationSchema(validationSchema)}
-        onSubmit={values => {
-          Alert.alert('Data sent');
-          console.log(values);
-        }}>
-        {({
-          values,
-          errors,
-          isValid,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }) => (
-          <KeyboardAvoidingView style={{ flex: 1 }}>
-            <View style={styles.fromWrapper}>
-              <InputWithError
-                onChangeText={handleChange('title')}
-                onBlur={handleBlur('title')}
-                placeholder="Title*"
-                value={values.title}
-                errors={errors.title}
-              />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={toFormikValidationSchema(validationSchema)}
+          onSubmit={values => {
+            Alert.alert('Data sent');
+            console.log(values);
+          }}>
+          {({
+            values,
+            errors,
+            isValid,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <View style={{ flex: 1 }}>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}>
+                <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                  <View style={styles.formWrapper}>
+                    <InputWithError
+                      onChangeText={handleChange('title')}
+                      onBlur={handleBlur('title')}
+                      placeholder="Title*"
+                      value={values.title}
+                      errors={errors.title}
+                    />
 
-              <InputWithError
-                onChangeText={handleChange('image')}
-                onBlur={handleBlur('image')}
-                placeholder="Image url"
-                value={values.image}
-                errors={errors.image}
-              />
-              <InputWithError
-                onChangeText={handleChange('link')}
-                onBlur={handleBlur('link')}
-                placeholder="Link"
-                value={values.link}
-                errors={errors.link}
-              />
-              <InputWithError
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                placeholder="Type your message here...*"
-                multiline
-                value={values.description}
-                errors={errors.description}
-                style={styles.description}
-              />
+                    <InputWithError
+                      onChangeText={handleChange('image')}
+                      onBlur={handleBlur('image')}
+                      placeholder="Image url"
+                      value={values.image}
+                      errors={errors.image}
+                    />
+                    <InputWithError
+                      onChangeText={handleChange('link')}
+                      onBlur={handleBlur('link')}
+                      placeholder="Link"
+                      value={values.link}
+                      errors={errors.link}
+                    />
+                    <InputWithError
+                      onChangeText={handleChange('description')}
+                      onBlur={handleBlur('description')}
+                      placeholder="Type your message here...*"
+                      multiline
+                      value={values.description}
+                      errors={errors.description}
+                      style={styles.description}
+                    />
+                  </View>
+                </ScrollView>
+              </KeyboardAvoidingView>
+              <View style={styles.buttonContainer}>
+                <StyledButton
+                  onPress={() => handleSubmit()}
+                  title="Public"
+                  variant="secondary"
+                  style={styles.button}
+                  disabled={!isValid}
+                />
+              </View>
             </View>
-            <StyledButton
-              onPress={() => handleSubmit()}
-              title="Public"
-              variant="secondary"
-              style={styles.button}
-              disabled={!isValid}
-            />
-          </KeyboardAvoidingView>
-        )}
-      </Formik>
-    </View>
+          )}
+        </Formik>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -119,20 +137,25 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     alignItems: 'center',
   },
-
   title: {
     flex: 1,
     marginRight: 60,
     textAlign: 'center',
   },
-  fromWrapper: {
+  formWrapper: {
     flex: 1,
     gap: 25,
   },
   description: {
     height: 155,
   },
+  buttonContainer: {
+    paddingBottom: 20,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
   button: {
-    marginBottom: 20,
+    marginTop: 'auto',
   },
 });

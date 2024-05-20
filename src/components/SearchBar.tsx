@@ -32,11 +32,13 @@ export const SearchBar: FC<SearchBarProps> = ({
         <View style={styles.search}>
           <SearchLens width={24} height={24} />
           <TextInput
+            allowFontScaling={false}
             value={value}
             placeholder={placeholder}
             placeholderTextColor="#8E949A"
             onChangeText={onChangeText}
             onEndEditing={onEndEditing}
+            style={styles.text}
           />
         </View>
       </View>
@@ -67,5 +69,12 @@ const styles = StyleSheet.create({
   },
   search: {
     flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+    height: '100%',
   },
 });
