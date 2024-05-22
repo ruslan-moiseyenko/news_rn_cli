@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -17,6 +17,8 @@ export type NewsPageProps = NativeStackScreenProps<
   RootStackParamList,
   'NewsPost'
 >;
+const blankImage =
+  'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=1024x1024&w=is&k=20&c=Bs1RdueQnaAcO888WBIQsC6NvA7aVTzeRVzSd8sJfUg=';
 
 export const NewsPostScreen: FC<NewsPageProps> = ({ navigation, route }) => {
   const {
@@ -34,10 +36,7 @@ export const NewsPostScreen: FC<NewsPageProps> = ({ navigation, route }) => {
         </Typography>
       </View>
       <View style={styles.main}>
-        <Image
-          source={require('@/assets/images/newsImage.png')}
-          style={styles.image}
-        />
+        <Image src={!!image ? image : blankImage} style={styles.image} />
         <View style={styles.infoWrapper}>
           <Typography type="light" size={12}>
             {date}
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: '75%',
+    width: '100%',
   },
   infoWrapper: {
     position: 'absolute',

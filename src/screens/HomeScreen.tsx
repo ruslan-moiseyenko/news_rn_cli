@@ -25,6 +25,12 @@ export const HomeScreen: FC<HomePageProps> = ({ navigation }) => {
 
   const { news, setNews } = context;
 
+  const newsDb = useGetData();
+
+  useEffect(() => {
+    setNews(newsDb);
+  }, [newsDb]);
+
   useEffect(() => {
     setFilteredNews(news || []);
   }, [news]);

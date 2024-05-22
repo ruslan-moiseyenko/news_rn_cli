@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { fetchData } from '@/api/fetchData';
 import { NewsType } from '@/types/general';
 
 export const useGetData = (): NewsType[] => {
@@ -8,13 +9,10 @@ export const useGetData = (): NewsType[] => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(
-          'https://api.jsonbin.io/v3/b/664b48b1acd3cb34a84ad37c?meta=false',
-        );
-        const data = await response.json();
-        setNewsData(data.news);
+        const response = await fetchData();
+        setNewsData(response);
       } catch (error) {
-        console.error('Error during fetching data');
+        console.error('Error: ', error);
       }
     })();
   }, []);

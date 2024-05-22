@@ -10,7 +10,6 @@ import BootSplash from 'react-native-bootsplash';
 
 import { NavigationContainer } from '@react-navigation/native';
 
-import { useGetData } from '@/hooks/useGetData';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { COLORS } from '@/theme/colors';
 import { NewsType } from '@/types/general';
@@ -36,12 +35,6 @@ function App(): React.JSX.Element {
       console.info('BootSplash has been hidden successfully');
     });
   }, []);
-
-  const newsDb = useGetData();
-
-  useEffect(() => {
-    setNews(newsDb);
-  }, [newsDb]);
 
   return (
     <NewsContext.Provider value={{ news, setNews }}>

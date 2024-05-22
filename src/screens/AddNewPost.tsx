@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react';
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
